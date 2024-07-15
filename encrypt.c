@@ -15,8 +15,29 @@ int main(int argc, char **argv)
     display_help();
     exit(EXIT_FAILURE);
   }
-  printf("Good\n");
-
+  FILE* ifptr;
+  FILE* ofptr;
+  char ch;
+  ifptr = fopen(argv[1], "r");
+  ofptr = fopen(argv[2], "w");
+  if(ifptr == NULL)
+  {
+    fprintf(stderr, "Input file could not be opened...\n");
+    exit(EXIT_FAILURE);
+  }
+  if(ofptr == NULL)
+  {
+    fprintf(stderr, "Output file could not be created...\n");
+    exit(EXIT_FAILURE);
+  }
+  while (!feof(ifptr))  {
+    ch = fgetc(ifptr);
+    fputc(ch, ofptr);
+    printf("%c", ch);
+  }
+  fclose(ifptr);
+  fclose(ofptr);
+  
 	return 0;
 }
 
